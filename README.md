@@ -3,7 +3,7 @@ Implementation of Patience Sort created for my bachelor's thesis "Evaluation of 
 based on the paper ['Patience is a Virtue: Revisiting Merge and Sort on Modern Processors'](http://research.microsoft.com/apps/pubs/default.aspx?id=209622)
 using several optimizations to achieve a runtime that is competitive to famous algorithms like Quicksort or Timsort
 
-Patience consists of 2 phases. The run generation phase splits the input data into sorted sequences
+Patience Sort consists of 2 phases. The run generation phase splits the input data into sorted sequences
 that are afterwards merged in the merge phase. The algorithm aims at sorting almost ordered data sets.
 There it is up to 4x faster than std::sort, dependent of the level of order.
 
