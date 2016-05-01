@@ -14,7 +14,7 @@ struct RunBlock {
     ValueType values[kValuesPerBlock];
     bool is_front;
     RunBlock()
-            : next(NULL), prev(NULL), next_free_pos_(0), is_front(false)
+            : next(nullptr), prev(nullptr), next_free_pos_(0), is_front(false)
     {}
 
 
@@ -95,7 +95,7 @@ public:
         begin_back_ = Alloc();
         end_back_ = begin_back_;
         size_ = 0;
-        begin_front_ = end_front_ = NULL;
+        begin_front_ = end_front_ = nullptr;
         end_block_ = begin_back_;
     }
 
@@ -123,7 +123,7 @@ public:
 
 
     void AddFront(ValueType &value) {
-        if(begin_front_ == NULL) {
+        if(begin_front_ == nullptr) {
             begin_front_ = Alloc();
             begin_front_->next_free_pos_ = kValuesPerBlock - 1;
             begin_front_->is_front = true;
@@ -154,7 +154,7 @@ public:
         int size_total = size_;
         size_total += end_back_->next_free_pos_;
 
-        if(begin_front_ != NULL) {
+        if(begin_front_ != nullptr) {
             size_total +=  kValuesPerBlock - begin_front_->next_free_pos_ - 1;
         }
         return size_total;
@@ -170,7 +170,7 @@ public:
     }
 
     iterator begin() {
-        if(begin_front_ == NULL) {
+        if(begin_front_ == nullptr) {
             return iterator(begin_back_, 0);
         } else {
             return iterator(begin_front_, begin_front_->next_free_pos_ + 1);
@@ -214,6 +214,7 @@ public:
 
     static void Release() {
         delete[] memory_;
+        memory_ = nullptr;
     }
 
     static RunBlock<ValueType>* Alloc() {
@@ -239,10 +240,10 @@ private:
 };
 
 template <typename ValueType>
-RunBlock<ValueType>* RunPool<ValueType>::memory_ = NULL;
+RunBlock<ValueType>* RunPool<ValueType>::memory_ = nullptr;
 
 template <typename ValueType>
-RunBlock<ValueType>* RunPool<ValueType>::next_free_ = NULL;
+RunBlock<ValueType>* RunPool<ValueType>::next_free_ = nullptr;
 
 template <typename ValueType>
 size_t RunPool<ValueType>::mem_blocks_;
