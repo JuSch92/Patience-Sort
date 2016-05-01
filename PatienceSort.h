@@ -39,6 +39,10 @@ public:
         std::vector<RunPool<ValueType>*> runs;
         GenerateRuns(begin, end, runs);
         Merge(begin, runs);
+
+        // release pool memory of runs and runblocks
+        RunPool<ValueType>::Release();
+        Release();
     }
 
 
@@ -206,11 +210,6 @@ private:
         // merge the last 2 runs directly to the output
         cur_run = run_infos.begin();
         BlindMerge(arrs, begin, cur_run);
-
-        // release pool memory of runs and runblocks
-        RunPool<ValueType>::Release();
-        Release();
-
     }
 
     // Merge 2 sorted runs into a ping-pong array
@@ -295,7 +294,7 @@ private:
 
     static void Release() {
         delete[] memory_;
-        memory_ = NULL;
+        memory_ = nullptr;
     }
 
     // Fetch a new memory block from the pool
@@ -328,10 +327,10 @@ private:
 };
 
 template <class RAI>
-RunPool<typename RAI::value_type>* PatienceSorting<RAI>::memory_ = NULL;
+RunPool<typename RAI::value_type>* PatienceSorting<RAI>::memory_ = nullptr;
 
 template <class RAI>
-RunPool<typename RAI::value_type>* PatienceSorting<RAI>::next_free_ = NULL;
+RunPool<typename RAI::value_type>* PatienceSorting<RAI>::next_free_ = nullptr;
 
 template <class RAI>
 size_t PatienceSorting<RAI>::run_blocks_;
